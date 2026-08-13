@@ -12,6 +12,7 @@ function mockResponse(status: number, body: string): Response {
 describe('requestJson', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
+    vi.restoreAllMocks();
   });
 
   it('2xxレスポンスのJSONボディをsuccessとして返す', async () => {
@@ -58,6 +59,21 @@ describe('requestJson', () => {
     });
   });
 
+  it('AbortSignal.timeoutの例外時はフォールバック値をtimeout結果に返す', async () => {
+    const timeoutError = new Error('request timed out');
+    timeoutError.name = 'TimeoutError';
+    vi.spyOn(AbortSignal, 'timeout').mockImplementationOnce(() => {
+      throw new Error('unsupported timeout');
+    });
+    const fetchMock = vi.fn().mockRejectedValue(timeoutError);
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(requestJson('http://example.test/data', { timeoutMs: 250 })).resolves.toEqual({
+      kind: 'timeout',
+      timeoutMs: 10_000,
+    });
+  });
+
   it('2xxレスポンスの不正なJSONをparseFailureとして返す', async () => {
     const fetchMock = vi.fn().mockResolvedValue(mockResponse(200, '{invalid json'));
     vi.stubGlobal('fetch', fetchMock);
@@ -90,6 +106,17 @@ describe('requestJson', () => {
     await expect(requestJson('http://example.test/data')).resolves.toEqual({
       kind: 'success',
       status: 204,
+      body: undefined,
+    });
+  });
+
+  it('2xxレスポンスの空白のみのボディをbody undefinedのsuccessとして返す', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(mockResponse(200, '  \n'));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(requestJson('http://example.test/data')).resolves.toEqual({
+      kind: 'success',
+      status: 200,
       body: undefined,
     });
   });

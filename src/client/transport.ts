@@ -37,13 +37,14 @@ export async function requestJson<T>(
   url: string,
   init?: RequestJsonInit,
 ): Promise<TransportResult<T>> {
-  const timeoutMs = resolveTimeoutMs(init?.timeoutMs);
+  let timeoutMs = resolveTimeoutMs(init?.timeoutMs);
   let timeoutSignal: AbortSignal;
 
   try {
     timeoutSignal = AbortSignal.timeout(timeoutMs);
   } catch {
-    timeoutSignal = AbortSignal.timeout(DEFAULT_TIMEOUT_MS);
+    timeoutMs = DEFAULT_TIMEOUT_MS;
+    timeoutSignal = AbortSignal.timeout(timeoutMs);
   }
 
   const requestInit: RequestJsonInit = {
@@ -77,7 +78,7 @@ export async function requestJson<T>(
   }
 
   if (isSuccessStatus(response.status)) {
-    if (rawBody === '') {
+    if (rawBody.trim() === '') {
       return { kind: 'success', status: response.status, body: undefined };
     }
 
