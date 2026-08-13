@@ -6,6 +6,9 @@ import { requestJson, type TransportResult } from './transport.js';
  * 各インスタンスはキャッシュとsingle-flight用Promiseを1組だけ保持します。
  */
 
+// TODO: httpError/network/timeout/parseFailureはTransportResultと同じkindを踏襲している。
+// httpClient.ts(タスク#5)実装時にKabuApiError型も同様の形になる見込みのため、
+// 3層で似た判別可能Union型が並ぶことになったら共通化を検討する。
 export type TokenResult =
   | { kind: 'success'; token: string }
   | { kind: 'apiError'; resultCode: number }
