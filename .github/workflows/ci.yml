@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+      - name: Node.jsをセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: 依存関係をインストール
+        run: npm ci
+      - name: lintを実行
+        run: npm run lint
+      - name: フォーマットを確認
+        run: npm run format:check
+      - name: 型チェックを実行
+        run: npm run typecheck
+      - name: テストとカバレッジを実行
+        run: npm test -- --coverage
+      - name: 本番依存関係の監査
+        run: npm audit --production
+      - name: ビルドを実行
+        run: npm run build
