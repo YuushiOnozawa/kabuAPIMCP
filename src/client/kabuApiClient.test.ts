@@ -142,14 +142,14 @@ const fixtures: Fixture[] = [
   },
   {
     name: 'getSymbolNameOption',
-    invoke: (client) => client.getSymbolNameOption(202608, '2', 30000, 'N225'),
-    path: '/symbolname/option?DerivMonth=202608&PutOrCall=2&StrikePrice=30000&OptionCode=N225',
+    invoke: (client) => client.getSymbolNameOption(202608, 'C', 30000, 'NK225op'),
+    path: '/symbolname/option?DerivMonth=202608&PutOrCall=C&StrikePrice=30000&OptionCode=NK225op',
     init: { method: 'GET' },
   },
   {
     name: 'getSymbolNameMinioptionWeekly',
-    invoke: (client) => client.getSymbolNameMinioptionWeekly(202608, 1, '2', 30000),
-    path: '/symbolname/minioptionweekly?DerivMonth=202608&DerivWeekly=1&PutOrCall=2&StrikePrice=30000',
+    invoke: (client) => client.getSymbolNameMinioptionWeekly(202608, 1, 'C', 30000),
+    path: '/symbolname/minioptionweekly?DerivMonth=202608&DerivWeekly=1&PutOrCall=C&StrikePrice=30000',
     init: { method: 'GET' },
   },
   {

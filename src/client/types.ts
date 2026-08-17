@@ -1,28 +1,28 @@
 export type WalletCashSuccess = {
-  StockAccountWallet: number;
-  AuKCStockAccountWallet: number;
-  AuJbnStockAccountWallet: number;
+  StockAccountWallet: number | null;
+  AuKCStockAccountWallet: number | null;
+  AuJbnStockAccountWallet: number | null;
 };
 
 export type WalletMarginSuccess = {
-  MarginAccountWallet: number;
-  DepositkeepRate: number;
-  ConsignmentDepositRate: number;
-  CashOfConsignmentDepositRate: number;
-  MaximumSellOpenAmountPerSymbol: number;
-  MaximumBuyOpenAmountPerSymbol: number;
+  MarginAccountWallet: number | null;
+  DepositkeepRate: number | null;
+  ConsignmentDepositRate: number | null;
+  CashOfConsignmentDepositRate: number | null;
+  MaximumSellOpenAmountPerSymbol: number | null;
+  MaximumBuyOpenAmountPerSymbol: number | null;
 };
 
 export type WalletFutureSuccess = {
-  FutureTradeLimit: number;
-  MarginRequirement: number;
-  MarginRequirementSell: number;
+  FutureTradeLimit: number | null;
+  MarginRequirement: number | null;
+  MarginRequirementSell: number | null;
 };
 
 export type WalletOptionSuccess = {
-  OptionBuyTradeLimit: number;
-  OptionSellTradeLimit: number;
-  MarginRequirement: number;
+  OptionBuyTradeLimit: number | null;
+  OptionSellTradeLimit: number | null;
+  MarginRequirement: number | null;
 };
 
 export type BoardSuccess = {
@@ -162,16 +162,16 @@ export type SymbolSuccess = {
   Exchange: number;
   ExchangeName: string;
   BisCategory: string;
-  TotalMarketValue: number;
-  TotalStocks: number;
+  TotalMarketValue: number | null;
+  TotalStocks: number | null;
   TradingUnit: number;
-  FiscalYearEndBasic: number;
+  FiscalYearEndBasic: number | null;
   PriceRangeGroup: string;
   KCMarginBuy: boolean;
   KCMarginSell: boolean;
   MarginBuy: boolean;
   MarginSell: boolean;
-  PerSymbolLimit: number;
+  PerSymbolLimit: number | null;
   UpperLimit: number;
   LowerLimit: number;
   Underlyer: string;
@@ -180,7 +180,7 @@ export type SymbolSuccess = {
   TradeEnd: number;
   StrikePrice: number;
   PutOrCall: number;
-  ClearingPrice: number;
+  ClearingPrice: number | null;
 };
 
 export type RankingDefaultResponse = {
@@ -322,9 +322,9 @@ export type RegulationsResponse = {
     Product: number;
     Side: string;
     Reason: string;
-    LimitStartDay: string;
-    LimitEndDay: string;
-    Level: number;
+    LimitStartDay: string | null;
+    LimitEndDay: string | null;
+    Level: number | null;
   }>;
 };
 
@@ -352,18 +352,18 @@ export type SymbolNameSuccess = {
 export type MarginPremiumResponse = {
   Symbol: string;
   GeneralMargin: {
-    MarginPremiumType: number;
-    MarginPremium: number;
-    UpperMarginPremium: number;
-    LowerMarginPremium: number;
-    TickMarginPremium: number;
+    MarginPremiumType: number | null;
+    MarginPremium: number | null;
+    UpperMarginPremium: number | null;
+    LowerMarginPremium: number | null;
+    TickMarginPremium: number | null;
   };
   DayTrade: {
-    MarginPremiumType: number;
-    MarginPremium: number;
-    UpperMarginPremium: number;
-    LowerMarginPremium: number;
-    TickMarginPremium: number;
+    MarginPremiumType: number | null;
+    MarginPremium: number | null;
+    UpperMarginPremium: number | null;
+    LowerMarginPremium: number | null;
+    TickMarginPremium: number | null;
   };
 };
 
@@ -387,7 +387,7 @@ export type OrdersSuccess = {
   DelivType: number;
   ExpireDay: number;
   MarginTradeType: number;
-  MarginPremium: number;
+  MarginPremium: number | null;
   Details: Array<{
     SeqNum: number;
     ID: string;
@@ -407,14 +407,14 @@ export type OrdersSuccess = {
 };
 
 export type PositionsSuccess = {
-  ExecutionID: string;
+  ExecutionID: string | null;
   AccountType: number;
   Symbol: string;
   SymbolName: string;
   Exchange: number;
   ExchangeName: string;
   SecurityType: number;
-  ExecutionDay: number;
+  ExecutionDay: number | null;
   Price: number;
   LeavesQty: number;
   HoldQty: number;
@@ -424,10 +424,10 @@ export type PositionsSuccess = {
   CommissionTax: number;
   ExpireDay: number;
   MarginTradeType: number;
-  CurrentPrice: number;
-  Valuation: number;
-  ProfitLoss: number;
-  ProfitLossRate: number;
+  CurrentPrice: number | null;
+  Valuation: number | null;
+  ProfitLoss: number | null;
+  ProfitLossRate: number | null;
 };
 
 export type ApiSoftLimitResponse = {
