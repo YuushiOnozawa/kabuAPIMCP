@@ -35,10 +35,10 @@ npm run build
 
 ## 環境変数
 
-| 変数名 | 必須 | 既定値 | 説明 |
-|---|---|---|---|
-| `KABU_API_PASSWORD` | 必須 | なし | kabu STATION APIのAPIパスワード |
-| `KABU_API_BASE_URL` | 任意 | `http://localhost:18080/kabusapi` | kabu STATION APIのベースURL |
+| 変数名              | 必須 | 既定値                            | 説明                            |
+| ------------------- | ---- | --------------------------------- | ------------------------------- |
+| `KABU_API_PASSWORD` | 必須 | なし                              | kabu STATION APIのAPIパスワード |
+| `KABU_API_BASE_URL` | 任意 | `http://localhost:18080/kabusapi` | kabu STATION APIのベースURL     |
 
 ## Windows導入手順
 
