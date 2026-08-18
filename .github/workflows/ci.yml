@@ -35,3 +35,24 @@ jobs:
         run: npm audit --production
       - name: ビルドを実行
         run: npm run build
+
+  windows-smoke:
+    needs: test
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+      - name: Node.jsをセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: 依存関係をインストール
+        run: npm ci
+      - name: ビルドを実行
+        run: npm run build
+      - name: MCPサーバー起動スモークテスト
+        run: node scripts/smoke-tools-list.mjs
+        env:
+          KABU_API_PASSWORD: dummy-password
