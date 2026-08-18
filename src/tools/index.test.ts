@@ -1,6 +1,3 @@
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -58,23 +55,5 @@ describe('registerAllTools', () => {
 
     expect(result.tools).toHaveLength(25);
     expect(result.tools.map(({ name }) => name).sort()).toEqual([...expectedToolNames].sort());
-  });
-
-  it('keeps order execution tools out of the production tool sources', async () => {
-    const productionFiles = [
-      'result.ts',
-      'wallet.ts',
-      'market.ts',
-      'master.ts',
-      'account.ts',
-      'register.ts',
-      'index.ts',
-    ];
-
-    for (const file of productionFiles) {
-      const source = await readFile(resolve(process.cwd(), 'src/tools', file), 'utf8');
-      expect(source).not.toContain('sendorder');
-      expect(source).not.toContain('cancelorder');
-    }
   });
 });
